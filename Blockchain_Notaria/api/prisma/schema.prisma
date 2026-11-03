@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String      @id @default(uuid())
+  email        String      @unique
+  displayName  String
+  passwordHash String?
+  role         String      @default("OPERATOR")
+  enabled      Boolean     @default(true)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  documents    Document[]  @relation("DocumentCreator")
+  auditEvents  AuditEvent[]
+}
+
+model Document {
+  id               String          @id @default(uuid())
+  publicId         String          @unique @default(uuid())
+  type             String
+  reference        String
+  notes            String?
+  originalName     String
+  mimeType         String
+  sizeBytes        Int
+  encryptedPath    String          @unique
+  currentHash      String
+  chainStatus      String          @default("PENDING")
+  chainId          String?
+  contractAddress  String?
+  transactionHash  String?
+  blockNumber      BigInt?
+  archivedAt       DateTime?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  createdById      String
+  createdBy        User            @relation("DocumentCreator", fields: [createdById], references: [id])
+  revisions        DocumentRevision[]
+  auditEvents      AuditEvent[]
+
+  @@index([type, createdAt])
+  @@index([reference])
+  @@index([currentHash])
+}
+
+model DocumentRevision {
+  id              String         @id @default(uuid())
+  documentId      String
+  version         Int
+  fileHash        String
+  encryptedPath   String?        @unique
+  originalName    String?
+  mimeType        String?
+  sizeBytes       Int?
+  status          String         @default("REGISTERED")
+  transactionHash String?
+  blockNumber     BigInt?
+  createdAt       DateTime       @default(now())
+  createdById     String
+  document        Document       @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@unique([documentId, version])
+  @@index([fileHash])
+}
+
+model AuditEvent {
+  id         String   @id @default(uuid())
+  action     String
+  details    Json?
+  createdAt  DateTime @default(now())
+  userId     String?
+  documentId String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  document   Document? @relation(fields: [documentId], references: [id], onDelete: SetNull)
+
+  @@index([createdAt])
+  @@index([documentId, createdAt])
+}

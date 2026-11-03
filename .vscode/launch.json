@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Xdebug: escuchar",
+      "type": "php",
+      "request": "launch",
+      "port": 9003,
+      "xdebugSettings": {
+        "max_children": 128,
+        "max_data": 1024,
+        "max_depth": 5
+      }
+    },
+    {
+      "name": "Xdebug: script actual",
+      "type": "php",
+      "request": "launch",
+      "program": "${file}",
+      "cwd": "${workspaceFolder}",
+      "port": 9003,
+      "runtimeArgs": ["-dxdebug.start_with_request=yes"]
+    }
+  ]
+}

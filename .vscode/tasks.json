@@ -1,0 +1,60 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Diagnóstico del entorno",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -File scripts/check-entorno.ps1",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "group": { "kind": "test", "isDefault": true }
+    },
+    {
+      "label": "Levantar entorno (servir)",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -File scripts/servir.ps1",
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "Migrar base de datos",
+      "type": "shell",
+      "command": "php artisan migrate",
+      "problemMatcher": []
+    },
+    {
+      "label": "Reiniciar base de datos (fresh + seed)",
+      "type": "shell",
+      "command": "php artisan migrate:fresh --seed",
+      "problemMatcher": []
+    },
+    {
+      "label": "Procesar cola de trabajos",
+      "type": "shell",
+      "command": "php artisan queue:work --tries=3",
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "Formatear código (Pint)",
+      "type": "shell",
+      "command": "vendor/bin/pint.bat",
+      "problemMatcher": []
+    },
+    {
+      "label": "Análisis estático (PHPStan)",
+      "type": "shell",
+      "command": "vendor/bin/phpstan.bat analyse --memory-limit=512M",
+      "problemMatcher": []
+    },
+    {
+      "label": "Ejecutar pruebas",
+      "type": "shell",
+      "command": "php artisan test",
+      "problemMatcher": [],
+      "group": "test"
+    }
+  ]
+}

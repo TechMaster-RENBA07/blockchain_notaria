@@ -1,0 +1,6 @@
+.env
+node_modules/
+web/dist/
+private-storage/
+*.db
+*.log

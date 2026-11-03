@@ -1,0 +1,30 @@
+{
+  "name": "nexo-notarial",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Gestión documental e integridad técnica para actuaciones notariales extraprotocolarias en Perú",
+  "workspaces": [
+    "api",
+    "web"
+  ],
+  "scripts": {
+    "setup": "node scripts/setup.js && npm run db:generate && npm run db:migrate",
+    "dev:api": "npm run dev --workspace=api",
+    "dev:web": "npm run dev --workspace=web",
+    "db:generate": "prisma generate --schema api/prisma/schema.prisma",
+    "db:migrate": "prisma migrate deploy --schema api/prisma/schema.prisma",
+    "db:migrate:dev": "prisma migrate dev --schema api/prisma/schema.prisma",
+    "build": "npm run build --workspace=web",
+    "blockchain:wallet": "node scripts/create-blockchain-wallet.js",
+    "blockchain:deploy": "node scripts/deploy-blockchain.js",
+    "test": "npm run test --workspace=api"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "overrides": {
+    "solc": {
+      "tmp": "0.2.7"
+    }
+  }
+}

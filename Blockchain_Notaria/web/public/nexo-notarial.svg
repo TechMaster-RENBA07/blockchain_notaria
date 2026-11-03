@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Nexo Notarial</title>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="#203b5c"/>
+  <path d="M32 10 48 16v13c0 11-7 19-16 25-9-6-16-14-16-25V16z" fill="none" stroke="#fff" stroke-width="2.4"/>
+  <path d="M24 40V24l16 16V24" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.2"/>
+  <circle cx="48" cy="18" r="3" fill="#b89b63"/>
+</svg>

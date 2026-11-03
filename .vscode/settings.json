@@ -1,0 +1,41 @@
+{
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+
+  "[php]": {
+    "editor.defaultFormatter": "open-southeners.laravel-pint",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4
+  },
+  "[blade]": {
+    "editor.defaultFormatter": "onecentlin.laravel-blade",
+    "editor.tabSize": 4
+  },
+  "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+
+  "laravel-pint.enable": true,
+  "laravel-pint.executablePath": "./vendor/bin/pint.bat",
+
+  "phpstan.binPath": "./vendor/bin/phpstan.bat",
+  "phpstan.configFile": "phpstan.neon",
+
+  "intelephense.environment.phpVersion": "8.5.0",
+  "intelephense.files.exclude": [
+    "**/node_modules/**",
+    "**/vendor/**/{Tests,tests}/**",
+    "**/storage/framework/**"
+  ],
+
+  "emmet.includeLanguages": { "blade": "html" },
+  "files.associations": { "*.blade.php": "blade" },
+
+  "search.exclude": {
+    "**/vendor": true,
+    "**/node_modules": true,
+    "**/storage/logs": true,
+    "**/public/build": true
+  },
+
+  "cSpell.language": "en,es"
+}

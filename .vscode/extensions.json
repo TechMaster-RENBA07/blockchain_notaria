@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "bmewburn.vscode-intelephense-client",
+    "xdebug.php-debug",
+    "onecentlin.laravel-blade",
+    "amiralizadeh9480.laravel-extra-intellisense",
+    "open-southeners.laravel-pint",
+    "SanderRonde.phpstan-vscode",
+    "qwtel.sqlite-viewer",
+    "bradlc.vscode-tailwindcss",
+    "eamodio.gitlens"
+  ]
+}

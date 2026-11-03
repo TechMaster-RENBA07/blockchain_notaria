@@ -1,0 +1,105 @@
+# =============================================================================
+# .megaignore — Red de seguridad para MEGAsync
+# =============================================================================
+#
+# LO IDEAL ES NO NECESITAR ESTE ARCHIVO.
+#
+# La configuración recomendada es que MEGA NO sincronice esta carpeta en
+# absoluto, y que sincronice únicamente la carpeta de respaldos:
+#
+#     C:\Users\<tu_usuario>\MEGA\Respaldos\CertSecure\
+#
+# donde ./scripts/respaldar.sh deposita el git bundle y los datos.
+#
+# Este archivo existe solo para el caso en que MEGA termine vigilando una
+# carpeta que contenga el proyecto. Evita el peor escenario: que el cliente
+# de sincronización corrompa .git subiendo estados parciales.
+#
+# Colócalo en la RAÍZ DE LA SINCRONIZACIÓN, no necesariamente aquí.
+# Referencia de sintaxis: https://help.mega.io/installs-apps/desktop/megaignore
+# =============================================================================
+
+# Compartir estas reglas con las demás máquinas que sincronicen la carpeta
++sync:.megaignore
+
+# -----------------------------------------------------------------------------
+# CRÍTICO — Git. Sincronizarlo corrompe el repositorio.
+# Git ya tiene su propio mecanismo de sincronización: push y pull.
+# -----------------------------------------------------------------------------
+-d:.git
+-f:.gitconfig
+-f:*.lock
+
+# -----------------------------------------------------------------------------
+# CRÍTICO — Secretos. Nunca deben salir de tu máquina.
+# El .env contiene la clave privada cifrada de la institución.
+# -----------------------------------------------------------------------------
+-f:.env
+-f:.env.*
+-f:*.pem
+-f:*.key
+-f:*.p12
+-f:*.pfx
+-d:keys
+
+# -----------------------------------------------------------------------------
+# Dependencias regenerables — decenas de miles de archivos que atascan MEGA.
+# Se recuperan con: composer install && npm install
+# -----------------------------------------------------------------------------
+-d:vendor
+-d:node_modules
+-d:.pnpm-store
+
+# -----------------------------------------------------------------------------
+# Base de datos SQLite en uso.
+# Los archivos -wal y -shm cambian constantemente; copiarlos a medias produce
+# una base corrupta. El respaldo consistente lo hace respaldar.sh con
+# "sqlite3 .backup", que sí garantiza integridad.
+# -----------------------------------------------------------------------------
+-f:database.sqlite
+-f:*.sqlite-wal
+-f:*.sqlite-shm
+-f:*.sqlite-journal
+
+# -----------------------------------------------------------------------------
+# Artefactos de compilación y caché
+# -----------------------------------------------------------------------------
+-d:build
+-d:dist
+-d:.vite
+-d:bootstrap/cache
+-d:logs
+-f:*.log
+-f:.phpunit.result.cache
+-d:.phpunit.cache
+
+# -----------------------------------------------------------------------------
+# Contenedores y entornos virtuales
+# -----------------------------------------------------------------------------
+-d:.venv
+-d:__pycache__
+
+# -----------------------------------------------------------------------------
+# Basura del sistema operativo
+# -----------------------------------------------------------------------------
+-f:Thumbs.db
+-f:desktop.ini
+-f:.DS_Store
+-d:FOUND.000
+-f:*.chk
+
+# =============================================================================
+# NOTA SOBRE .vscode Y .devcontainer
+#
+# NO están excluidos a propósito: definen tu entorno de desarrollo y quieres
+# conservarlos. Pero ojo — algunas configuraciones de MEGAsync filtran por
+# defecto TODO nombre que empiece con punto, lo que los excluiría en silencio
+# junto con .git, .env y .gitignore.
+#
+# Verifícalo en: MEGAsync → Configuración → Sincronizaciones → Exclusiones.
+# Si aparece una regla tipo ".*", tu "respaldo" está omitiendo justamente lo
+# que hace funcionar el proyecto.
+#
+# Esta es exactamente la razón por la que el respaldo debe ser un git bundle:
+# un solo archivo, sin punto inicial, que contiene absolutamente todo.
+# =============================================================================

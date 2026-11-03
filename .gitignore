@@ -1,0 +1,52 @@
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+/vendor
+
+.env
+.env.backup
+.env.production
+.phpactor.json
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+
+# --- Base de datos: la estructura viaja en Git, los datos NO ---------------
+/database/database.sqlite
+/database/database.sqlite-shm
+/database/database.sqlite-wal
+/database/*.sqlite-journal
+
+# --- Material criptografico: JAMAS al repositorio --------------------------
+/storage/keys/
+*.pem
+*.key
+*.p12
+*.pfx
+!/storage/keys/.gitkeep
+
+# --- Documentos generados en tiempo de ejecucion ---------------------------
+/storage/app/public/certificados/
+/storage/app/public/qr/
+
+# --- Artefactos de la USB ---------------------------------------------------
+*.bundle
+/_datos/
+
+# --- Sistema operativo ------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- VS Code: se versiona la config compartida, no la personal -------------
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/tasks.json
